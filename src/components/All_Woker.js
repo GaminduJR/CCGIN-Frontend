@@ -5,21 +5,21 @@ import { render } from "@testing-library/react";
 import './view_style.css'
 import Header from "./Header";
 
-export default function All_lecturers()
+export default function All_worker()
 {
-    const [lecturers, setLecturer] = useState([])
+    const [worker, setworker] = useState([])
     const [modeldata, setModeldata] = useState({
-        name : '',
-        age : '',
-        gender : '',
-        lecture_course : ''
+        Name : '',
+        NIC : '',
+        cleaningType : '',
+        phoneNum : ''
 
     })  
  
 const getdata = () => {
-    fetch('http://localhost:8000/lecturer/view/')
+    fetch('http://localhost:8000/worker/view/')
     .then(response=>response.json())
-    .then(res=>setLecturer(res))
+    .then(res=>setworker(res))
     
 }
 
@@ -27,16 +27,16 @@ const getdata = () => {
         getdata();
     } , []);
 
-const delete_lecturer = ((id) => {
-    axios.delete("http://localhost:8000/lecturer/delete/" + id).then(()=>{
-        alert("lecturer delete")
+const delete_worker = ((id) => {
+    axios.delete("http://localhost:8000/worker/delete/" + id).then(()=>{
+        alert("worker delete")
         }).catch((err)=>{alert(err)})
 })  
     return(
         <div>
          <Header/>
         <div className="container">
-            <h1 className="tital">All Lecturers</h1>
+            <h1 className="tital">All Cleaning Staff</h1>
             <table>
                 <thead>
                     <tr>
@@ -45,29 +45,29 @@ const delete_lecturer = ((id) => {
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Age&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;NIC&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Gender&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;cleaningType&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
 
                         <th className="head">
-                        lec_course(s)&nbsp;
+                        W_Hrs&nbsp;
                         </th>
                     </tr>
                 </thead>
                 <tbody className="body">
-                    {lecturers.map((names,index)=>
+                    {worker.map((Names,index)=>
                     <tr key={index}>
-                        <td className="data">{names.name}</td>
-                        <td className="data">{names.age}</td>
-                        <td className="data">{names.gender}</td>
-                        <td className="data">{names.lecture_course}</td>
+                        <td className="data">{Names.Name}</td>
+                        <td className="data">{Names.NIC}</td>
+                        <td className="data">{Names.cleaningType}</td>
+                        <td className="data">{Names.phoneNum}</td>
                         <td>
-                            <Link className="link" to={`/update_lecturer/${names._id}`}>update</Link>
+                            <Link className="link" to={`/update_worker/${Names._id}`}>update</Link>
                             &nbsp;&nbsp;&nbsp;
-                            <button className="delete_button" onClick={() => delete_lecturer(names._id)}>delete</button>
+                            <button className="delete_button" onClick={() => delete_worker(Names._id)}>delete</button>
                     
                         </td>
                         <br></br><br></br>
@@ -81,5 +81,4 @@ const delete_lecturer = ((id) => {
             </div>
             </div>
     )
-
 } 

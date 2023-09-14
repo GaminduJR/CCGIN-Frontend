@@ -1,14 +1,14 @@
 import React,{useState} from "react";
 import axios from "axios";
 import './add_style.css'
-import Header_user from "./Header_user";
+import Header from "./Header";
 
-export default function AddLecturer()
+const AddLecturer = () =>
 {
     const [name , setname]  = useState("");
-    const [age , setage]  = useState("");
-    const [gender , setgender]  = useState("");
-    const [lecture_course , setlecture_course]  = useState("");
+    const [NIC , setNIC]  = useState("");
+    const [email , setemail]  = useState("");
+    const [contactNum , setcontactNum]  = useState("");
 
     function senddata(e)
     {
@@ -16,17 +16,17 @@ export default function AddLecturer()
 
         const newlecturer = {
             name,
-            age,
-            gender,
-            lecture_course
+            NIC,
+            email,
+            contactNum
         }
 
-      axios.post("http://localhost:8070/lecturer/add_lecturer",newlecturer).then(()=>{
-        alert("lecturer add")
+      axios.post("http://localhost:8000/lecturer/save",newlecturer).then(()=>{
+        alert("lecturer added")
         setname("");
-        setage("");
-        setgender("");
-        setlecture_course("");
+        setNIC("");
+        setemail("");
+        setcontactNum("");
       }).catch((err)=>{alert(err)})
     }
 
@@ -34,7 +34,7 @@ export default function AddLecturer()
         
     return(
       <div>
-         <Header_user/>
+         <Header/>
       <div className="container">
       <div className="text">
          Lecturer Application Form
@@ -48,22 +48,22 @@ export default function AddLecturer()
             </div>
             <div className="input-data">
                <div className="underline"></div>
-              <label className="age"></label>
-       <input type="number" placeholder="Your age" onChange={e=>{setage(e.target.value);}}/>
+              <label className="NIC"></label>
+       <input type="number" placeholder="Your NIC" onChange={e=>{setNIC(e.target.value);}}/>
             </div>
          </div>
          <div className="form-row">
             <div className="input-data">
                <div className="underline"></div>
-                <label className="Gender"></label>
-       <input type="text" placeholder="Your Gender" onChange={e=>{setgender(e.target.value);}}/>
+                <label className="email"></label>
+       <input type="text" placeholder="Your email" onChange={e=>{setemail(e.target.value);}}/>
             </div>
             </div> 
             <div className="form-row">
             <div className="input-data">
                <div className="underline"></div>
-                <label className="lecture_course"></label>
-       <input type="text" placeholder="Your lecture course(s)" onChange={e=>{setlecture_course(e.target.value);}}/>
+                <label className="contactNum"></label>
+       <input type="text" placeholder="Your lecture course(s)" onChange={e=>{setcontactNum(e.target.value);}}/>
             </div>
             </div> 
                   <button className="button" onClick={senddata}>Submit</button>
@@ -71,5 +71,7 @@ export default function AddLecturer()
       </form>
       </div>
       </div>
-    )
-}
+    );
+};
+
+export default AddLecturer;

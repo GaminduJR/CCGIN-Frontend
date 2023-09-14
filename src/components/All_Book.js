@@ -5,38 +5,38 @@ import { render } from "@testing-library/react";
 import './view_style.css'
 import Header from "./Header";
 
-export default function All_lecturers()
+export default function All_Book()
 {
-    const [lecturers, setLecturer] = useState([])
+    const [book, setbook] = useState([])
     const [modeldata, setModeldata] = useState({
-        name : '',
-        age : '',
-        gender : '',
-        lecture_course : ''
+        bookName : '',
+        ISBN : '',
+        author : '',
+        bookCategory : ''
 
     })  
  
 const getdata = () => {
-    fetch('http://localhost:8000/lecturer/view/')
+    fetch('http://localhost:8000/book/view/')
     .then(response=>response.json())
-    .then(res=>setLecturer(res))
+    .then(res=>setbook(res))
     
 }
 
     useEffect (() => {
         getdata();
     } , []);
-
-const delete_lecturer = ((id) => {
-    axios.delete("http://localhost:8000/lecturer/delete/" + id).then(()=>{
-        alert("lecturer delete")
+    
+const delete_book = ((id) => {
+    axios.delete("http://localhost:8000/book/delete/" + id).then(()=>{
+        alert("book delete")
         }).catch((err)=>{alert(err)})
 })  
     return(
         <div>
          <Header/>
         <div className="container">
-            <h1 className="tital">All Lecturers</h1>
+            <h1 className="tital">All Non Academic Staff</h1>
             <table>
                 <thead>
                     <tr>
@@ -45,29 +45,29 @@ const delete_lecturer = ((id) => {
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Age&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;ISBN&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Gender&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;author&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
 
                         <th className="head">
-                        lec_course(s)&nbsp;
+                        Work_field(s)&nbsp;
                         </th>
                     </tr>
                 </thead>
                 <tbody className="body">
-                    {lecturers.map((names,index)=>
+                    {book.map((names,index)=>
                     <tr key={index}>
-                        <td className="data">{names.name}</td>
-                        <td className="data">{names.age}</td>
-                        <td className="data">{names.gender}</td>
-                        <td className="data">{names.lecture_course}</td>
+                        <td className="data">{names.bookName}</td>
+                        <td className="data">{names.ISBN}</td>
+                        <td className="data">{names.author}</td>
+                        <td className="data">{names.bookCategory}</td>
                         <td>
-                            <Link className="link" to={`/update_lecturer/${names._id}`}>update</Link>
+                            <Link className="link" to={`/update_book/${names._id}`}>update</Link>
                             &nbsp;&nbsp;&nbsp;
-                            <button className="delete_button" onClick={() => delete_lecturer(names._id)}>delete</button>
+                            <button className="delete_button" onClick={() => delete_book(names._id)}>delete</button>
                     
                         </td>
                         <br></br><br></br>
@@ -81,5 +81,4 @@ const delete_lecturer = ((id) => {
             </div>
             </div>
     )
-
 } 
