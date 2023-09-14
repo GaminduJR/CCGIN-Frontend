@@ -81,4 +81,5 @@ const delete_lecturer = ((id) => {
             </div>
             </div>
     )
+
 } 

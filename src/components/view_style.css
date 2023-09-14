@@ -1,22 +1,16 @@
-/* .container{
+.container{
   max-width: 800px;
   background: #fff;
   width: 800px;
-  padding: 25px 40px 40px 40px;
+  padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-  transition: 1s;
 }
-
-.container:hover{
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.189);
-}
-
 .tital{
   text-align: center;
   font-size: 30px;
   font-weight: 800;
   font-family: 'Poppins', sans-serif;
-  background: #00000083;
+  background: #ff6f00;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -66,7 +60,7 @@
 
 .link{
     appearance: none;
-    background-color: #00ff15;
+    background-color: #0022ff;
     border: 1px solid rgba(27, 31, 35, .15);
     border-radius: 16px;
     box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
@@ -87,4 +81,4 @@
     touch-action: manipulation;
     vertical-align: middle;
     white-space: nowrap;
-  } */
+  }

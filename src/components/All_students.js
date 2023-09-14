@@ -3,24 +3,24 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { render } from "@testing-library/react";
 import './view_style.css'
-import Header from "./Header";
+import Header_user from "./Header_user";
 
 export default function All_students()
 {
     const [students, setStudents] = useState([])
     const [modeldata, setModeldata] = useState({
         name : '',
-        ID : '',
-        email : '',
-        contactNum : ''
+        age : '',
+        gender : '',
+        course : ''
 
     })  
  
 const getdata = () => {
-    fetch('http://localhost:8000/student/view/')
+    fetch('http://localhost:8070/student/view_students/')
     .then(response=>response.json())
-    .then(res=>setStudents(res.existingStudent))
-   
+    .then(res=>setStudents(res))
+    
 }
 
     useEffect (() => {
@@ -28,15 +28,15 @@ const getdata = () => {
     } , []);
     
     const delete_student = ((id) => {
-        axios.delete("http://localhost:8000/student/delete/" + id).then(()=>{
-            alert("student deleted")
+        axios.delete("http://localhost:8070/student/delete/" + id).then(()=>{
+            alert("student delete")
           }).catch((err)=>{alert(err)})
     })  
     return(
         <div>
-         <Header/>
+         <Header_user/>
         <div className="container">
-            <h1 className="tital">view Students</h1>
+            <h1 className="tital">All Students</h1>
             <table>
                 <thead>
                     <tr>
@@ -45,24 +45,23 @@ const getdata = () => {
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;Age&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;Gender&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
                         <th className="head">
-                            contactNum&nbsp;
+                            Course&nbsp;
                         </th>
                     </tr>
                 </thead>
                 <tbody className="body">
-                {/* {console.log(students)}; */}
                     {students.map((names,index)=>
                     <tr key={index}>
                         <td className="data">{names.name}</td>
-                        <td className="data">{names.ID}</td>
-                        <td className="data">{names.email}</td>
-                        <td className="data">{names.contactNum}</td>
+                        <td className="data">{names.age}</td>
+                        <td className="data">{names.gender}</td>
+                        <td className="data">{names.course}</td>
                         <td>
                             <Link className="link" to={`/update_student/${names._id}`}>update</Link>
                             &nbsp;&nbsp;&nbsp;

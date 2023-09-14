@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import './add_style.css'
-import Header from "./Header";
+import Header_user from "./Header_user";
 
 export default function Update_cleaningstaff()
 {
@@ -34,7 +34,7 @@ export default function Update_cleaningstaff()
 
     return(
       <div>
-         <Header/>
+         <Header_user/>
       <div className="container">
       <div className="text">
          Update Cleaning Staff

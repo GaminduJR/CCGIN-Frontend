@@ -2,15 +2,15 @@ import React,{useState} from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import './add_style.css'
-import Header from "./Header";
+import Header_user from "./Header_user";
 
 export default function Update_student()
 {
     const {id} = useParams()
     const [name , setname]  = useState();
-    const [ID , setID]  = useState();
-    const [email , setemail]  = useState();
-    const [contactNum , setcontactNum]  = useState();
+    const [age , setage]  = useState();
+    const [gender , setgender]  = useState();
+    const [course , setcourse]  = useState();
 
     function senddata(e)
     {
@@ -18,23 +18,23 @@ export default function Update_student()
 
         const newstudent = {
             name,
-            ID,
-            email,
-            contactNum
+            age,
+            gender,
+            course
         }
 
-      axios.put("http://localhost:8000/student/update/" + id,newstudent).then(()=>{
-        alert("student updated")
+      axios.put("http://localhost:8070/student/update_student/" + id,newstudent).then(()=>{
+        alert("student update")
         setname("");
-        setID("");
-        setemail("");
-        setcontactNum("");
+        setage("");
+        setgender("");
+        setcourse("");
       }).catch((err)=>{alert(err)})
     }
 
     return(
       <div>
-         <Header/>
+         <Header_user/>
       <div className="container">
       <div className="text">
          Update Student
@@ -48,22 +48,22 @@ export default function Update_student()
             </div>
             <div className="input-data">
                <div className="underline"></div>
-              <label className="ID"></label>
-       <input type="number" placeholder="Your ID" onChange={e=>{setID(e.target.value);}}/>
+              <label className="age"></label>
+       <input type="number" placeholder="Your age" onChange={e=>{setage(e.target.value);}}/>
             </div>
          </div>
          <div className="form-row">
             <div className="input-data">
                <div className="underline"></div>
-                <label className="email"></label>
-       <input type="text" placeholder="Your email" onChange={e=>{setemail(e.target.value);}}/>
+                <label className="Gender"></label>
+       <input type="text" placeholder="Your Gender" onChange={e=>{setgender(e.target.value);}}/>
             </div>
             </div> 
             <div className="form-row">
             <div className="input-data">
                <div className="underline"></div>
-                <label className="contactNum"></label>
-       <input type="text" placeholder="Your contactNum" onChange={e=>{setcontactNum(e.target.value);}}/>
+                <label className="Course"></label>
+       <input type="text" placeholder="Your Course" onChange={e=>{setcourse(e.target.value);}}/>
             </div>
             </div> 
                   <button className="button" onClick={senddata}>Submit</button>
@@ -72,5 +72,4 @@ export default function Update_student()
       </div>
       </div>
     )
-
 }
