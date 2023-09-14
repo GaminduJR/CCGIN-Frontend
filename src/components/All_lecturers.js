@@ -2,7 +2,8 @@ import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { render } from "@testing-library/react";
-import Header_user from "./Header_user";
+import './view_style.css'
+import Header from "./Header";
 
 export default function All_lecturers()
 {
@@ -16,7 +17,7 @@ export default function All_lecturers()
     })  
  
 const getdata = () => {
-    fetch('http://localhost:8070/lecturer/view_lecturers/')
+    fetch('http://localhost:8000/lecturer/view/')
     .then(response=>response.json())
     .then(res=>setLecturer(res))
     
@@ -27,13 +28,13 @@ const getdata = () => {
     } , []);
 
 const delete_lecturer = ((id) => {
-    axios.delete("http://localhost:8070/lecturer/delete/" + id).then(()=>{
+    axios.delete("http://localhost:8000/lecturer/delete/" + id).then(()=>{
         alert("lecturer delete")
         }).catch((err)=>{alert(err)})
 })  
     return(
         <div>
-         <Header_user/>
+         <Header/>
         <div className="container">
             <h1 className="tital">All Lecturers</h1>
             <table>
@@ -80,4 +81,5 @@ const delete_lecturer = ((id) => {
             </div>
             </div>
     )
+
 } 

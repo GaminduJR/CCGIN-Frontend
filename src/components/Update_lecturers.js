@@ -72,5 +72,4 @@ export default function Update_lecturer()
       </div>
       </div>
     )
-
 }

@@ -3,23 +3,23 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { render } from "@testing-library/react";
 import './view_style.css'
-import Header_user from "./Header_user";
+import Header from "./Header";
 
-export default function All_students()
+export default function All_Book()
 {
-    const [students, setStudents] = useState([])
+    const [book, setbook] = useState([])
     const [modeldata, setModeldata] = useState({
-        name : '',
-        age : '',
-        gender : '',
-        course : ''
+        bookName : '',
+        ISBN : '',
+        author : '',
+        bookCategory : ''
 
     })  
  
 const getdata = () => {
-    fetch('http://localhost:8070/student/view_students/')
+    fetch('http://localhost:8000/book/view/')
     .then(response=>response.json())
-    .then(res=>setStudents(res))
+    .then(res=>setbook(res))
     
 }
 
@@ -27,16 +27,16 @@ const getdata = () => {
         getdata();
     } , []);
     
-    const delete_student = ((id) => {
-        axios.delete("http://localhost:8070/student/delete/" + id).then(()=>{
-            alert("student delete")
-          }).catch((err)=>{alert(err)})
-    })  
+const delete_book = ((id) => {
+    axios.delete("http://localhost:8000/book/delete/" + id).then(()=>{
+        alert("book delete")
+        }).catch((err)=>{alert(err)})
+})  
     return(
         <div>
-         <Header_user/>
+         <Header/>
         <div className="container">
-            <h1 className="tital">All Students</h1>
+            <h1 className="tital">All Non Academic Staff</h1>
             <table>
                 <thead>
                     <tr>
@@ -45,27 +45,29 @@ const getdata = () => {
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Age&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;ISBN&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
+
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Gender&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;author&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
+
                         <th className="head">
-                            Course&nbsp;
+                        Work_field(s)&nbsp;
                         </th>
                     </tr>
                 </thead>
                 <tbody className="body">
-                    {students.map((names,index)=>
+                    {book.map((names,index)=>
                     <tr key={index}>
-                        <td className="data">{names.name}</td>
-                        <td className="data">{names.age}</td>
-                        <td className="data">{names.gender}</td>
-                        <td className="data">{names.course}</td>
+                        <td className="data">{names.bookName}</td>
+                        <td className="data">{names.ISBN}</td>
+                        <td className="data">{names.author}</td>
+                        <td className="data">{names.bookCategory}</td>
                         <td>
-                            <Link className="link" to={`/update_student/${names._id}`}>update</Link>
+                            <Link className="link" to={`/update_book/${names._id}`}>update</Link>
                             &nbsp;&nbsp;&nbsp;
-                            <button className="delete_button" onClick={() => delete_student(names._id)}>delete</button>
+                            <button className="delete_button" onClick={() => delete_book(names._id)}>delete</button>
                     
                         </td>
                         <br></br><br></br>

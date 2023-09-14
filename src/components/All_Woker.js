@@ -3,40 +3,40 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { render } from "@testing-library/react";
 import './view_style.css'
-import Header_user from "./Header_user";
+import Header from "./Header";
 
-export default function All_students()
+export default function All_worker()
 {
-    const [students, setStudents] = useState([])
+    const [worker, setworker] = useState([])
     const [modeldata, setModeldata] = useState({
-        name : '',
-        age : '',
-        gender : '',
-        course : ''
+        Name : '',
+        NIC : '',
+        cleaningType : '',
+        phoneNum : ''
 
     })  
  
 const getdata = () => {
-    fetch('http://localhost:8070/student/view_students/')
+    fetch('http://localhost:8000/worker/view/')
     .then(response=>response.json())
-    .then(res=>setStudents(res))
+    .then(res=>setworker(res))
     
 }
 
     useEffect (() => {
         getdata();
     } , []);
-    
-    const delete_student = ((id) => {
-        axios.delete("http://localhost:8070/student/delete/" + id).then(()=>{
-            alert("student delete")
-          }).catch((err)=>{alert(err)})
-    })  
+
+const delete_worker = ((id) => {
+    axios.delete("http://localhost:8000/worker/delete/" + id).then(()=>{
+        alert("worker delete")
+        }).catch((err)=>{alert(err)})
+})  
     return(
         <div>
-         <Header_user/>
+         <Header/>
         <div className="container">
-            <h1 className="tital">All Students</h1>
+            <h1 className="tital">All Cleaning Staff</h1>
             <table>
                 <thead>
                     <tr>
@@ -45,27 +45,29 @@ const getdata = () => {
                         </th>
 
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Age&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;NIC&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
+
                         <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Gender&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;cleaningType&nbsp;&nbsp;&nbsp;&nbsp;
                         </th>
+
                         <th className="head">
-                            Course&nbsp;
+                        W_Hrs&nbsp;
                         </th>
                     </tr>
                 </thead>
                 <tbody className="body">
-                    {students.map((names,index)=>
+                    {worker.map((Names,index)=>
                     <tr key={index}>
-                        <td className="data">{names.name}</td>
-                        <td className="data">{names.age}</td>
-                        <td className="data">{names.gender}</td>
-                        <td className="data">{names.course}</td>
+                        <td className="data">{Names.Name}</td>
+                        <td className="data">{Names.NIC}</td>
+                        <td className="data">{Names.cleaningType}</td>
+                        <td className="data">{Names.phoneNum}</td>
                         <td>
-                            <Link className="link" to={`/update_student/${names._id}`}>update</Link>
+                            <Link className="link" to={`/update_worker/${Names._id}`}>update</Link>
                             &nbsp;&nbsp;&nbsp;
-                            <button className="delete_button" onClick={() => delete_student(names._id)}>delete</button>
+                            <button className="delete_button" onClick={() => delete_worker(Names._id)}>delete</button>
                     
                         </td>
                         <br></br><br></br>
