@@ -1,84 +1,128 @@
-import React, {useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import axios from "axios";
-import { render } from "@testing-library/react";
-import './view_style.css'
-import Header from "./Header";
 
-export default function All_Book()
-{
-    const [book, setbook] = useState([])
-    const [modeldata, setModeldata] = useState({
-        bookName : '',
-        ISBN : '',
-        author : '',
-        bookCategory : ''
+export default function ViewBooks() {
+  const [books, setBooks] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-    })  
- 
-const getdata = () => {
-    fetch('http://localhost:8000/book/view/')
-    .then(response=>response.json())
-    .then(res=>setbook(res))
-    
-}
+  React.useEffect(() => {
+    retrieveBooks();
+  }, []);
 
-    useEffect (() => {
-        getdata();
-    } , []);
-    
-const delete_book = ((id) => {
-    axios.delete("http://localhost:8000/book/delete/" + id).then(()=>{
-        alert("book delete")
-        }).catch((err)=>{alert(err)})
-})  
-    return(
-        <div>
-         <Header/>
-        <div className="container">
-            <h1 className="tital">All Non Academic Staff</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th className="head">
-                        Name&nbsp;&nbsp;&nbsp;&nbsp;
-                        </th>
-
-                        <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;ISBN&nbsp;&nbsp;&nbsp;&nbsp;
-                        </th>
-
-                        <th className="head">
-                        &nbsp;&nbsp;&nbsp;&nbsp;author&nbsp;&nbsp;&nbsp;&nbsp;
-                        </th>
-
-                        <th className="head">
-                        Work_field(s)&nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="body">
-                    {book.map((names,index)=>
-                    <tr key={index}>
-                        <td className="data">{names.bookName}</td>
-                        <td className="data">{names.ISBN}</td>
-                        <td className="data">{names.author}</td>
-                        <td className="data">{names.bookCategory}</td>
-                        <td>
-                            <Link className="link" to={`/update_book/${names._id}`}>update</Link>
-                            &nbsp;&nbsp;&nbsp;
-                            <button className="delete_button" onClick={() => delete_book(names._id)}>delete</button>
-                    
-                        </td>
-                        <br></br><br></br>
-                    </tr>
-                    )}
-
-                    
-                </tbody>
-            </table>
+  function retrieveBooks() {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:8000/book/view")
+      .then((res) => {
+        if (res.data.success) {
             
-            </div>
-            </div>
-    )
-} 
+            setBooks(res.data.existingBooks);
+        }
+        console.log(res.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  const onDelete = (id) => {
+    axios.delete(`http://localhost:8000/book/delete/${id}`).then((res) => {
+        retrieveBooks();
+      alert("Delete Successfully");
+    });
+  };
+
+  function filterData(books, searchKey) {
+    searchKey = searchKey.toLowerCase();
+    const result = books.filter(
+      (book) =>
+      book.bookName.toLowerCase().includes(searchKey) ||
+      book.ISBN.toLowerCase().includes(searchKey) ||
+      book.author.toLowerCase().includes(searchKey) ||
+      book.bookCategory.toLowerCase().includes(searchKey)
+    );
+    setBooks(result);
+  }
+
+  const handleSearchArea = (e) => {
+    const searchKey = e.currentTarget.value;
+    setIsLoading(true);
+    axios
+      .get("http://localhost:8000/book/view")
+      .then((res) => {
+        if (res.data.success) {
+          filterData(res.data.existingBook, searchKey);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-9 mt-2 mb-2">
+          <h4 className="mt-5">All Books</h4>
+        </div>
+        <div className="col-lg-3 mt-2 mb-2">
+          <input
+            className="form-control mt-5"
+            type="search"
+            placeholder="Search"
+            name="searchQuery"
+            onChange={handleSearchArea}
+          ></input>
+        </div>
+      </div>
+      <table className="table table-hover" style={{ marginTop: "40px" }}>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">author</th>
+            <th scope="col">Book Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {isLoading ? (
+            <div className="p-5">Loading...</div>
+          ) : (
+            books.map((books, index) => (
+              <tr key={index}>
+                <th scope="row">{index + 1}</th>
+                <td>{books.bookName}</td>
+                <td>{books.ISBN}</td>
+                <td>{books.author}</td>
+                <td>{books.bookCategory}</td>
+                <td>
+                  <a
+                    className="btn btn-warning"
+                    href={`http://localhost:8000/book/update/${books._id}`}
+                  >
+                    <i className="fas fa-edit"></i>&nbsp;Edit
+                  </a>
+                  &nbsp;
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => onDelete(books._id)}
+                  >
+                    <i className="far fa-trash-alt"></i>&nbsp;Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+      <a
+        href="/books/add"
+        className="btn btn-success"
+        style={{ textDecoration: "none", color: "white" }}
+      >
+        Add Book
+      </a>
+    </div>
+  );
+}

@@ -1,39 +1,39 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-export default function AddLecturer() {
-  const [Name, setName] = useState({});
+export default function AddLibrarian() {
+  const [name, setname] = useState({});
   const [NIC, setNIC] = useState({});
   const [email, setemail] = useState({});
   const [contactNum, setcontactNum] = useState({});
 
   const onSubmit = (e) => {
     // e.preventDefault();
-    axios.post("http://localhost:8000/lecturer/save", {Name,NIC,email,contactNum}).then((res) => {
+    axios.post("http://localhost:8000/librarian/save", {name,NIC,email,contactNum}).then((res) => {
       if (res.data.success) {
-        setName({});
+        setname({});
         setNIC({});
         setemail({});
         setcontactNum({});
-        alert("lecturer added successfully");
+        alert("librarian added successfully");
       }
     });
   };
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Add New Lecturer</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Add New Librarian</h1>
       <form className="needs-validation" noValidate>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>lecturer Name</label>
+          <label style={{ marginBottom: "5px" }}>Librarian Name</label>
           <input
             type="text"
             className="form-control"
-            name="LecturerName"
-            placeholder="Enter lecturer Name"
+            name="librarianName"
+            placeholder="Enter librarian Name"
             required
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setname(e.target.value)}
           />
         </div>        
 
