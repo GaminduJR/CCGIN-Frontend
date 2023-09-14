@@ -26,14 +26,7 @@ import { BrowserRouter as Router,Routes,Route, BrowserRouter,Navigate } from 're
 
 import { useEffect, useState } from "react";
 
-
-
-
-
-
-
-const App = () => {
-  
+function App() {
   return (
    <BrowserRouter>        
       <Header />
@@ -61,7 +54,8 @@ const App = () => {
 
           </Routes>
         </BrowserRouter>
+
   );
-};
+}
 
 export default App;
