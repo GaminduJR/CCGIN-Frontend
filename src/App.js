@@ -4,10 +4,12 @@ import AddStudent from './components/Add_Student';
 import AllStudent from './components/All_students';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import Home from './components/Home';
 import { BrowserRouter as Router,Routes,Route, BrowserRouter,Navigate } from 'react-router-dom';
 
 
 import { useEffect, useState } from "react";
+import ViewStudents from './components/All_students';
 
 
 
@@ -46,11 +48,12 @@ if (username === validUsername && password === validPassword) {
    <BrowserRouter>
        <div>
           <Routes>
-          <Route path='/' element={loggedIn } />
+           <Route path='/' element={<Home/>} />
           <Route path='/add_student' element={<AddStudent/>}/>
           <Route path='/view_students' element={<AllStudent/>}/>
           <Route path='/register' element={<Signup/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/students' element={<ViewStudents/>}/>
          
           </Routes>
           </div>

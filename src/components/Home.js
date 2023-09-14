@@ -1,28 +1,33 @@
-import React,{Fragment, useState} from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
-import './add_style.css'
+import "./add_style.css";
 import Header from "./Header";
+import back from "../images/backgound.jpg";
 
-const Home = () =>
-{
-   return(
-      <div>
-         <Header/>
+const Home = () => {
+  const imgstyle = {
+    justifyContent: "center",
+    innerWidth: "80px",
+  };
+  return (
+    <div>
+      <Header />
       <div className="container">
-      <div className="text">
-         <h1>Welcome!!!</h1>
-         <p>Registration Platform</p>
+        <div className="text" style={imgstyle}>
+          <h1 className="mt-5">Welcome!!!</h1>
+          <p>Registration Platform</p>
+        </div>
+        <img
+          src="https://assets.architecturaldigest.in/photos/624c2654cf7483eb90e638d6/16:9/w_1920,c_limit/Books-1.jpg"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+        <form action="#">
+          <div className="form-row" />
+        </form>
       </div>
-      <form action="#">
-         <div className="form-row"/>
-            
-              
-      </form>
-      </div>
-      </div>
-   
-    )
-
-}
+    </div>
+  );
+};
 
 export default Home;
