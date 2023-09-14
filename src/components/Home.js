@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import axios from "axios";
 import "./add_style.css";
-import Header from "./Header";
+
 import back from "../images/backgound.jpg";
 
 const Home = () => {
@@ -10,12 +10,11 @@ const Home = () => {
     innerWidth: "80px",
   };
   return (
-    <div>
-      <Header />
+   <div style={{backgroundColor: "black"}}>
       <div className="container">
-        <div className="text" style={imgstyle}>
-          <h1 className="mt-5">Welcome!!!</h1>
-          <p>Registration Platform</p>
+        <div className="text text-center" style={imgstyle}>
+          <h1 className="pt-5 text-light">Library  Management</h1>
+          <p></p>
         </div>
         <img
           src="https://assets.architecturaldigest.in/photos/624c2654cf7483eb90e638d6/16:9/w_1920,c_limit/Books-1.jpg"

@@ -1,78 +1,87 @@
-import React,{useState} from "react";
 import axios from "axios";
-import './add_style.css'
-import Header from "./Header";
+import React, { useState } from "react";
 
-const AddBook = () => 
-{
-    const [bookName , setbookName]  = useState("");
-    const [ISBN , setISBN]  = useState("");
-    const [author , setauthor]  = useState("");
-    const [bookCategory , setbookCategory]  = useState("");
+export default function AddBook() {
+  const [bookName, setbookName] = useState({});
+  const [ISBN, setISBN] = useState({});
+  const [author, setauthor] = useState({});
+  const [bookCategory, setbookCategory] = useState({});
 
-    function senddata(e)
-    {
-        e.preventDefault();
+  const onSubmit = (e) => {
+    // e.preventDefault();
+    axios.post("http://localhost:8000/book/save", {bookName,ISBN,author,bookCategory}).then((res) => {
+      if (res.data.success) {
+         setbookName({});
+         setISBN({});
+         setauthor({});
+         setbookCategory({});
+        alert("Book added successfully");
+      }
+    });
+  };
 
-        const newbook = {
-            bookName,
-            ISBN,
-            author,
-            bookCategory
-        }
+  return (
+    <div className="col-md-8 mt-4 mx-auto">
+      <h1 className="h3 mb-3 font-weight-normal">Add New Book</h1>
+      <form className="needs-validation" noValidate>
 
-      axios.post("http://localhost:8000/book/save",newbook).then(()=>{
-        alert("book added")
-        setbookName("");
-        setISBN("");
-        setauthor("");
-        setbookCategory("");
-      }).catch((err)=>{alert(err)})
-    }
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Book Name</label>
+          <input
+            type="text"
+            className="form-control"
+            name="bookName"
+            placeholder="Enter Book Name"
+            required
+            onChange={(e) => setbookName(e.target.value)}
+          />
+        </div>        
 
-    
-        
-    return(
-      <div>
-         <Header/>
-      <div className="container">
-      <div className="text">
-         Non Academic Staff Application Form
-      </div>
-      <form action="#">
-         <div className="form-row">
-            <div className="input-data">
-               <div className="underline"></div>
-               <label className="bookName"></label>
-        <input type="text" className="name_i" placeholder="Your bookName" onChange={e=>{setbookName(e.target.value);}}/>
-            </div>
-            <div className="input-data">
-               <div className="underline"></div>
-              <label className="ISBN"></label>
-       <input type="number" placeholder="Your ISBN" onChange={e=>{setISBN(e.target.value);}}/>
-            </div>
-         </div>
-         <div className="form-row">
-            <div className="input-data">
-               <div className="underline"></div>
-                <label className="author"></label>
-       <input type="text" placeholder="Your author" onChange={e=>{setauthor(e.target.value);}}/>
-            </div>
-            </div> 
-            <div className="form-row">
-            <div className="input-data">
-               <div className="underline"></div>
-                <label className="bookCategory"></label>
-       <input type="text" placeholder="Your working field(s)" onChange={e=>{setbookCategory(e.target.value);}}/>
-            </div>
-            </div> 
-                  <button className="button" onClick={senddata}>Submit</button>
-              
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>NIC</label>
+          <input
+            type="text"
+            className="form-control"
+            name="NIC"
+            placeholder="Enter NIC"
+            required
+            onChange={(e) => setISBN(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Author</label>
+          <input
+            type="text"
+            className="form-control"
+            name="author"
+            placeholder="Enter Author"
+            required
+            onChange={(e) => setauthor(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Book Category</label>
+          <input
+            type="text"
+            className="form-control"
+            name="bookCategory"
+            placeholder="Enter Book Category"
+            required
+            onChange={(e) => setbookCategory(e.target.value)}
+          />
+        </div>
+
+        <button
+          className="btn btn-success"
+          type="submit"
+          style={{ marginTop: "15px" }}
+          onClick={onSubmit}
+        >
+          <i className="far fa-check-square"></i>&nbsp; Add
+        </button>
       </form>
-      </div>
-      </div>
-
-    );
-};
-
-export default AddBook;
+    </div>
+  );
+}

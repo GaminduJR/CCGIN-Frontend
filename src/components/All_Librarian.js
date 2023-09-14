@@ -1,22 +1,22 @@
 import React from "react";
 import axios from "axios";
 
-export default function ViewLecturers() {
-  const [lecturers, setLecturers] = React.useState([]);
+export default function ViewLibrarians() {
+  const [librarians, setLibrarians] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
-    retrieveLecturers();
+    retrieveLibrarians();
   }, []);
 
-  function retrieveLecturers() {
+  function retrieveLibrarians() {
     setIsLoading(true);
     axios
-      .get("http://localhost:8000/lecturer/view")
+      .get("http://localhost:8000/librarian/view")
       .then((res) => {
         if (res.data.success) {
             
-            setLecturers(res.data.existingLecturer);
+            setLibrarians(res.data.existingLibrarian);
         }
         console.log(res.data);
       })
@@ -26,31 +26,31 @@ export default function ViewLecturers() {
   }
 
   const onDelete = (id) => {
-    axios.delete(`http://localhost:8000/lecturer/delete/${id}`).then((res) => {
-        retrieveLecturers();
+    axios.delete(`http://localhost:8000/librarian/delete/${id}`).then((res) => {
+        retrieveLibrarians();
       alert("Delete Successfully");
     });
   };
 
-  function filterData(lecturers, searchKey) {
+  function filterData(librarians, searchKey) {
     searchKey = searchKey.toLowerCase();
-    const result = lecturers.filter(
-      (lecturer) =>
-      lecturer.Name.toLowerCase().includes(searchKey) ||
-      lecturer.NIC.toLowerCase().includes(searchKey) ||
-      lecturer.email.toLowerCase().includes(searchKey)
+    const result = librarians.filter(
+      (librarian) =>
+      librarian.name.toLowerCase().includes(searchKey) ||
+      librarian.ID.toLowerCase().includes(searchKey) ||
+      librarian.email.toLowerCase().includes(searchKey)
     );
-    setLecturers(result);
+    setLibrarians(result);
   }
 
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
     setIsLoading(true);
     axios
-      .get("http://localhost:8000/lecturer/view")
+      .get("http://localhost:8000/librarian/view")
       .then((res) => {
         if (res.data.success) {
-          filterData(res.data.existingLecturer, searchKey);
+          filterData(res.data.existingLibrarian, searchKey);
         }
       })
       .finally(() => {
@@ -62,7 +62,7 @@ export default function ViewLecturers() {
     <div className="container">
       <div className="row">
         <div className="col-lg-9 mt-2 mb-2">
-          <h4 className="mt-5">All Lecturers</h4>
+          <h4 className="mt-5">All Librarians</h4>
         </div>
         <div className="col-lg-3 mt-2 mb-2">
           <input
@@ -78,7 +78,7 @@ export default function ViewLecturers() {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Lecturer Name</th>
+            <th scope="col">Librarian Name</th>
             <th scope="col">NIC</th>
             <th scope="col">Email</th>
             <th scope="col">Contact Number</th>
@@ -88,24 +88,24 @@ export default function ViewLecturers() {
           {isLoading ? (
             <div className="p-5">Loading...</div>
           ) : (
-            lecturers.map((lecturers, index) => (
+            librarians.map((librarians, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{lecturers.name}</td>
-                <td>{lecturers.NIC}</td>
-                <td>{lecturers.email}</td>
-                <td>{lecturers.contactNum}</td>
+                <td>{librarians.name}</td>
+                <td>{librarians.NIC}</td>
+                <td>{librarians.email}</td>
+                <td>{librarians.contactNum}</td>
                 <td>
                   <a
                     className="btn btn-warning"
-                    href={`http://localhost:8000/student/update/${lecturers._id}`}
+                    href={`http://localhost:8000/librarian/update/${librarians._id}`}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
                   &nbsp;
                   <button
                     className="btn btn-danger"
-                    onClick={() => onDelete(lecturers._id)}
+                    onClick={() => onDelete(librarians._id)}
                   >
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </button>
@@ -116,11 +116,11 @@ export default function ViewLecturers() {
         </tbody>
       </table>
       <a
-        href="/lecturers/add"
+        href="/librarians/add"
         className="btn btn-success"
         style={{ textDecoration: "none", color: "white" }}
       >
-        Add Lecturer
+        Add Librarian
       </a>
     </div>
   );

@@ -1,15 +1,31 @@
 
 import './App.css';
+
 import AddStudent from './components/Add_Student';
-import AllStudent from './components/All_students';
+import ViewStudents from './components/All_students';
+import EditStudent from './components/Update_students';
+
+import AddLecturer from './components/Add_Lecturer';
+import ViewLecturers from './components/All_lecturers';
+
+import AddBook from './components/Add_Book';
+import ViewBooks from './components/All_Book';
+
+import AddWorker from './components/Add_Worker';
+import ViewWorkers from './components/All_Worker';
+
+import AddLibrarian from './components/Add_Librarian';
+import ViewLibrarians from './components/All_Librarian';
+
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import Header from "./components/Header";
 import { BrowserRouter as Router,Routes,Route, BrowserRouter,Navigate } from 'react-router-dom';
 
 
 import { useEffect, useState } from "react";
-import ViewStudents from './components/All_students';
+
 
 
 
@@ -17,46 +33,33 @@ import ViewStudents from './components/All_students';
 
 
 const App = () => {
-  var validUsername = 'ruchith';
-  var validPassword = '21001766';
-
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const handleLogin = (username, password) => {
-    if(username==='ruchith') {
-      validUsername='ruchith';
-      validPassword='21001766';}
-    else if(username==='nethmi') {
-        validUsername='nethmi';
-        validPassword='21000131';}
-    else if(username==='praveena') {
-      validUsername='praveena';
-      validPassword='21001669';}  
-    else if(username==='sandani') {
-      validUsername='sandani';
-      validPassword='21000743';}  
-    else if(username==='suruthi') {
-      validUsername='suruthi';
-      validPassword='21001172';}     
-if (username === validUsername && password === validPassword) {
-      setLoggedIn(true);
-    } else {
-      alert('Invalid username or password. Please try again.');
-    }
-  };
+  
   return (
-   <BrowserRouter>
-       <div>
+   <BrowserRouter>        
+      <Header />
+      
           <Routes>
-           <Route path='/' element={<Home/>} />
-          <Route path='/add_student' element={<AddStudent/>}/>
-          <Route path='/view_students' element={<AllStudent/>}/>
+          <Route path='/' element={<Home/>} />
           <Route path='/register' element={<Signup/>}/>
           <Route path='/login' element={<Login/>}/>
+
           <Route path='/students' element={<ViewStudents/>}/>
+          <Route path='/students/add' element={<AddStudent/>}/>
+          <Route path='/students/edit/:id' element={<EditStudent/>}/>
          
+          <Route path='/lecturers' element={<ViewLecturers/>}/>
+          <Route path='/lecturers/add' element={<AddLecturer/>}/>
+
+          <Route path='/books' element={<ViewBooks/>}/>
+          <Route path='/books/add' element={<AddBook/>}/>
+
+          <Route path='/workers' element={<ViewWorkers/>}/>
+          <Route path='/workers/add' element={<AddWorker/>}/>
+
+          <Route path='/librarians' element={<ViewLibrarians/>}/>
+          <Route path='/librarians/add' element={<AddLibrarian/>}/>
+
           </Routes>
-          </div>
         </BrowserRouter>
   );
 };

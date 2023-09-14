@@ -36,9 +36,9 @@ export default function ViewStudents() {
     searchKey = searchKey.toLowerCase();
     const result = students.filter(
       (student) =>
-      student.planName.toLowerCase().includes(searchKey) ||
-      student.payment.toLowerCase().includes(searchKey) ||
-      student.category.toLowerCase().includes(searchKey)
+      student.name.toLowerCase().includes(searchKey) ||
+      student.ID.toLowerCase().includes(searchKey) ||
+      student.email.toLowerCase().includes(searchKey)
     );
     setStudents(result);
   }
@@ -98,7 +98,7 @@ export default function ViewStudents() {
                 <td>
                   <a
                     className="btn btn-warning"
-                    href={`http://localhost:8000/student/update/${students._id}`}
+                    href={`/students/edit/${students._id}`}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
