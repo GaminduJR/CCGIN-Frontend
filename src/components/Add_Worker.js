@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-export default function AddLecturer() {
+export default function AddWorker() {
   const [Name, setName] = useState({});
   const [NIC, setNIC] = useState({});
   const [cleaningType, setcleaningType] = useState({});
@@ -9,29 +9,29 @@ export default function AddLecturer() {
 
   const onSubmit = (e) => {
     // e.preventDefault();
-    axios.post("http://localhost:8000/lecturer/save", {Name,NIC,cleaningType,contactNum}).then((res) => {
+    axios.post("http://localhost:8000/worker/save", {Name,NIC,cleaningType,contactNum}).then((res) => {
       if (res.data.success) {
         setName({});
         setNIC({});
         setcleaningType({});
         setcontactNum({});
-        alert("lecturer added successfully");
+        alert("worker added successfully");
       }
     });
   };
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Add New Lecturer</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Add New Worker</h1>
       <form className="needs-validation" noValidate>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>lecturer Name</label>
+          <label style={{ marginBottom: "5px" }}>Worker Name</label>
           <input
             type="text"
             className="form-control"
-            name="LecturerName"
-            placeholder="Enter lecturer Name"
+            name="WorkerName"
+            placeholder="Enter Worker Name"
             required
             onChange={(e) => setName(e.target.value)}
           />

@@ -3,20 +3,18 @@ import axios from "axios";
 import "./signup.css";
 import Header_2 from "./Header";
 import Logo2 from "..";
-import { useSignup } from "../hooks/useSignup";
 
-export default function useSignup() {
+export default function useSignp() {
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [username, setUsername] = useState("");
   const [Mobile_NO, setMobile_NO] = useState("");
   const [Temporary_Password, setTemporary_Password] = useState("");
-  const [signup, error, isLoading] = useState("");
 
   const senddata = async (e) => {
     e.preventDefault()
     
-    await signup(username, password)
+    // await signup(username, password)
     
     const newsignup = {
       first_name,
@@ -28,7 +26,7 @@ export default function useSignup() {
 
 
     axios
-      .post("http://localhost:8070/signup", newsignup)
+      .post("http://localhost:8000/signup", newsignup)
       .then(() => {
         alert("Successful Registration");
         setfirst_name("");
@@ -155,7 +153,6 @@ export default function useSignup() {
                         >
                           Submit
                         </button>
-                        {error && <div className="error">{error}</div>}
                       </div>
                     </div>
                   </div>

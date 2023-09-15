@@ -99,7 +99,7 @@ export default function ViewBooks() {
                 <td>
                   <a
                     className="btn btn-warning"
-                    href={`http://localhost:8000/book/update/${books._id}`}
+                    href={`/books/edit/${books._id}`}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>

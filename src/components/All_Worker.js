@@ -90,14 +90,14 @@ export default function ViewWorkers() {
             workers.map((workers, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{workers.name}</td>
+                <td>{workers.Name}</td>
                 <td>{workers.NIC}</td>
                 <td>{workers.cleaningType}</td>
                 <td>{workers.contactNum}</td>
                 <td>
                   <a
                     className="btn btn-warning"
-                    href={`http://localhost:8000/student/update/${workers._id}`}
+                    href={`/workers/edit/${workers._id}`}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>

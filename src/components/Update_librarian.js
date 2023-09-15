@@ -2,58 +2,58 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export default function EditStudent() {
+export default function EditLibrarian() {
   const id = useParams().id;
-  const [name, setName] = useState({});
-  const [ID, setID] = useState({});
+  const [name, setname] = useState({});
+  const [NIC, setNIC] = useState({});
   const [email, setEmail] = useState({});
-  const [contactNum, setContactNum] = useState({});
+  const [contactNum, setcontactNum] = useState({});
 
   React.useEffect(() => {
-    axios.get(`http://localhost:8000/student/${id}`).then((res) => {
+    axios.get(`http://localhost:8000/librarian/${id}`).then((res) => {
       console.log("update1");
       if (res.data.success) {
         console.log("update2");
-        setName(res.data.student.name);
-        setID(res.data.student.ID);
-        setEmail(res.data.student.email);
-        setContactNum(res.data.student.contactNum);
+        setname(res.data.librarian.name);
+        setNIC(res.data.librarian.NIC);
+        setEmail(res.data.librarian.email);
+        setcontactNum(res.data.librarian.contactNum);
       }
     });
   }, [id]);
 
   const onSubmit = (e) => {
     axios
-      .put(`http://localhost:8000/student/update/${id}`, {
+      .put(`http://localhost:8000/librarian/update/${id}`, {
         name,
-        ID,
+        NIC,
         email,
         contactNum,
       })
       .then((res) => {
         if (res.data.success) {
           console.log(res.data.success);
-          setName({});
-          setID({});
+          setname({});
+          setNIC({});
           setEmail({});
-          setContactNum({});
+          setcontactNum({});
         }
       });
   };
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Student</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Edit Librarian</h1>
       <form className="needs-validation" noValidate>
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Student Name</label>
+          <label style={{ marginBottom: "5px" }}>Librarian Name</label>
           <input
             type="text"
             className="form-control"
-            name="studentName"
+            name="librarianName"
             value={name}
             required
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setname(e.target.value)}
           />
         </div>
 
@@ -63,9 +63,9 @@ export default function EditStudent() {
             type="text"
             className="form-control"
             name="NIC"
-            value={ID}
+            value={NIC}
             required
-            onChange={(e) => setID(e.target.value)}
+            onChange={(e) => setNIC(e.target.value)}
           />
         </div>
         <div className="form-group" style={{ marginBottom: "15px" }}>
@@ -87,7 +87,7 @@ export default function EditStudent() {
             name="cNum"
             value={contactNum}
             required
-            onChange={(e) => setContactNum(e.target.value)}
+            onChange={(e) => setcontactNum(e.target.value)}
           />
         </div>
         <button

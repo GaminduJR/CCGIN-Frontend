@@ -91,14 +91,14 @@ export default function ViewLecturers() {
             lecturers.map((lecturers, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{lecturers.name}</td>
+                <td>{lecturers.Name}</td>
                 <td>{lecturers.NIC}</td>
                 <td>{lecturers.email}</td>
                 <td>{lecturers.contactNum}</td>
                 <td>
                   <a
                     className="btn btn-warning"
-                    href={`http://localhost:8000/student/update/${lecturers._id}`}
+                    href={`/lecturers/edit/${lecturers._id}`}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>

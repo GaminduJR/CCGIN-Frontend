@@ -2,92 +2,92 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export default function EditStudent() {
+export default function EditBook() {
   const id = useParams().id;
-  const [name, setName] = useState({});
-  const [ID, setID] = useState({});
-  const [email, setEmail] = useState({});
-  const [contactNum, setContactNum] = useState({});
+  const [bookName, setbookName] = useState({});
+  const [ISBN, setISBN] = useState({});
+  const [author, setAuthor] = useState({});
+  const [bookCategory, setBookCategory] = useState({});
 
   React.useEffect(() => {
-    axios.get(`http://localhost:8000/student/${id}`).then((res) => {
+    axios.get(`http://localhost:8000/book/${id}`).then((res) => {
       console.log("update1");
       if (res.data.success) {
         console.log("update2");
-        setName(res.data.student.name);
-        setID(res.data.student.ID);
-        setEmail(res.data.student.email);
-        setContactNum(res.data.student.contactNum);
+        setbookName(res.data.book.bookName);
+        setISBN(res.data.book.ISBN);
+        setAuthor(res.data.book.author);
+        setBookCategory(res.data.book.bookCategory);
       }
     });
   }, [id]);
 
   const onSubmit = (e) => {
     axios
-      .put(`http://localhost:8000/student/update/${id}`, {
-        name,
-        ID,
-        email,
-        contactNum,
+      .put(`http://localhost:8000/book/update/${id}`, {
+        bookName,
+        ISBN,
+        author,
+        bookCategory,
       })
       .then((res) => {
         if (res.data.success) {
           console.log(res.data.success);
-          setName({});
-          setID({});
-          setEmail({});
-          setContactNum({});
+          setbookName({});
+          setISBN({});
+          setAuthor({});
+          setBookCategory({});
         }
       });
   };
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Student</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Edit Book</h1>
       <form className="needs-validation" noValidate>
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Student Name</label>
+          <label style={{ marginBottom: "5px" }}>Book Name</label>
           <input
             type="text"
             className="form-control"
-            name="studentName"
-            value={name}
+            name="bookName"
+            value={bookName}
             required
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setbookName(e.target.value)}
           />
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>NIC</label>
+          <label style={{ marginBottom: "5px" }}>ISBN</label>
           <input
             type="text"
             className="form-control"
-            name="NIC"
-            value={ID}
+            name="ISBN"
+            value={ISBN}
             required
-            onChange={(e) => setID(e.target.value)}
+            onChange={(e) => setISBN(e.target.value)}
           />
         </div>
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Email</label>
+          <label style={{ marginBottom: "5px" }}>Author</label>
           <input
             type="text"
             className="form-control"
-            name="email"
-            value={email}
+            name="author"
+            value={author}
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Contact Number</label>
+          <label style={{ marginBottom: "5px" }}>Book Category</label>
           <input
             type="text"
             className="form-control"
-            name="cNum"
-            value={contactNum}
+            name="bookCategory"
+            value={bookCategory}
             required
-            onChange={(e) => setContactNum(e.target.value)}
+            onChange={(e) => setBookCategory(e.target.value)}
           />
         </div>
         <button
